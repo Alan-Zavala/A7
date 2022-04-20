@@ -13,8 +13,8 @@ class Ship {
     alive = true;
   }
   
-  boolean boundCheck(int x) {
-    if (x > 0 && pos.x > width - 63) {
+  boolean boundCheck(float x, float bound) {
+    if (x > 0 && pos.x > width - bound) {
      moveMe = false;
      return moveMe;
     }
@@ -25,8 +25,8 @@ class Ship {
     moveMe = true;
     return moveMe;
   }
-  void move(int x) {
-    if (boundCheck(x)) {
+  void move(float x, float bound) {
+    if (boundCheck(x, bound)) {
      pos.x += x; 
     }
   }
