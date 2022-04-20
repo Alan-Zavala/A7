@@ -3,18 +3,31 @@
 class Ship {
   PVector pos;
   int health;
-  PVector hurtboxDim;
+  float hurtX, hurtY;
   boolean alive;
+  boolean moveMe;
   
-  Ship(float posX, float posY, int health, float hurtX, float hurtY) {
+  Ship(float posX, float posY, int health) {
     pos = new PVector(posX, posY);
     this.health = health;
-    hurtboxDim = new PVector(hurtX, hurtY);
     alive = true;
   }
   
-  void move(int x, int y) {
-    pos.x += x;
-    pos.y += y;
+  boolean boundCheck(int x) {
+    if (x > 0 && pos.x > width - 63) {
+     moveMe = false;
+     return moveMe;
+    }
+    if (x <= 0 && pos.x < 0) {
+      moveMe = false;
+      return moveMe;
+    }
+    moveMe = true;
+    return moveMe;
+  }
+  void move(int x) {
+    if (boundCheck(x)) {
+     pos.x += x; 
+    }
   }
 }
