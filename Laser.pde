@@ -1,24 +1,36 @@
-class Laser {
+class laser {
   PVector pos;
   PVector sp;
   color c;
   boolean onScreen;
+  PShape s;
   
-  Laser(PVector pos, color c) {
+  laser(PVector pos, PVector sp, color c) {
     this.pos = pos;
+    this.sp = sp;
     this.c = c;
     onScreen = true;
+    s = createShape();
+    s.beginShape();
+    s.fill(c);
+    s.noStroke();
+    s.strokeWeight(3);
+    s.vertex(pos.x, pos.y);
+    s.vertex(pos.x-4, pos.y+10);
+    s.vertex(pos.x,pos.y+8);
+    s.vertex(pos.x+4,pos.y+10);
+    s.endShape(CLOSE);
   }
   
   void display() {
     fill(c);
-    ellipse(pos.x + 32, pos.y, 4, 4);
-    stroke(c);
-    line(pos.x + 32, pos.y + 10, pos.x + 32, pos.y);
+    shape(s);
   }
   
   void move() {
-    pos.y -= 10;
+    pos.x += sp.x;
+    pos.y += sp.y;
+    s.translate(sp.x, sp.y);
   }
   
   void ifOffScreen() {
