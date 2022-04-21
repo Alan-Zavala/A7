@@ -5,6 +5,8 @@ PFont pixels;
 Timer timer;
 stat_laser lz;
 ArrayList<Laser> laserz;
+boolean beg = false;
+boolean first = true;
 
 void setup() {
   time = 30;
@@ -27,6 +29,24 @@ void setup() {
 
   size(500, 500);
   background(20);
+  
+  textFont(pixels);
+  textSize(20);
+  textAlign(CENTER);
+  
+  fill(0, 255, 0);
+  text("KNOCKOFF GALAGA", width / 2, height / 2 - 80);
+  
+  textSize(14);
+  
+  fill(0, 0, 255);
+  text("HOW TO PLAY:", width / 2, height / 2 - 40);
+  fill(255);
+  text("use a and d to move left or right", width / 2, height / 2 - 20);
+  text("press space to shoot lasers", width/2, height / 2);
+  text("press p to pause", width / 2, height / 2 + 20);
+  fill(255, 0, 0);
+  text("Press b to begin", width / 2, height / 2 + 80);
 }
 
 void displayTime() {
@@ -74,9 +94,26 @@ void gameOverCheck() {
 }
 
 void draw() {
+  if (keyPressed && key == 'b') {
+    beg = true;
+  } 
+
   gameOverCheck();
   player.pause();
-  play();
+  
+  if (player.paused == true) {
+    fill(255, 0, 0);
+    text("paused", width / 2, height / 2 - 20);
+    text("press p to resume", width / 2, height / 2 + 20);
+  }
+  
+  if (beg == true) {
+    if (first == true) {
+      first = false;
+      background(0);
+    }
+    play();
+  }
 }
 
 // TODO: implement shooting/collision detection, pause
