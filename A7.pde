@@ -3,8 +3,8 @@ Enemy enemy;
 int time;
 PFont pixels;
 Timer timer;
-stat_laser lz;
-ArrayList<Laser> laserz;
+ArrayList<stat_laser> enemy_laserz;
+ArrayList<laser> player_laserz;
 
 void setup() {
   time = 30;
@@ -18,12 +18,8 @@ void setup() {
   enemy.load();
 
   // adding one laser into array, can add based on player and AI actions
-  laserz = new ArrayList<Laser>();
-  PVector pos = new PVector(100, 50);
-  PVector sp = new PVector(0, 2);
-  color c = color(255, 100, 0);
-  //lz new stat_laser(pos, sp, c);
-  //lasz.add(lz);
+  enemy_laserz = new ArrayList<stat_laser>();
+  player_laserz = new ArrayList<laser>();
 
   size(500, 500);
   background(20);
@@ -48,18 +44,11 @@ void play() {
     fill(255);
     player.control();
     player.display();
-    player.shoot(laserz);
+    player.check_hit();
 
     enemy.oscillate();
     enemy.display();
-    
-    for (Laser ls : laserz) {
-      ls.move();
-      ls.display();
-      if (ls.onScreen == false) {
-        laserz.remove(ls);
-      }
-    }
+    enemy.check_hit();
   }
 }
 
@@ -73,11 +62,39 @@ void gameOverCheck() {
   }
 }
 
+void lasers() {
+  for (int i = 0; i<player_laserz.size();i++) {
+   laser lz = player_laserz.get(i);
+   lz.display();
+   lz.move();
+  }
+  for (int i = 0; i<enemy_laserz.size();i++) {
+   stat_laser lz = enemy_laserz.get(i);
+   lz.display();
+   lz.move();}
+  
+}
+
 void draw() {
   gameOverCheck();
   player.pause();
   play();
+  
+  for (int i = 0; i<player_laserz.size();i++) {
+   laser lz = player_laserz.get(i);
+   lz.display();
+   lz.move();
+  }
 }
+
+void keyReleased() {
+    if (key == ' ') {
+      PVector p = new PVector(player.pos.x+player.hurtX/4, player.pos.y);
+      PVector sp = new PVector(0,-3);
+      laser lz = new laser(p, sp, color(0,80,255));
+      player_laserz.add(lz); 
+    }
+  }
 
 // TODO: implement shooting/collision detection, pause
 // screen, game over screen
