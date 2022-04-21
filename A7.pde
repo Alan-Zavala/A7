@@ -10,7 +10,7 @@ void setup() {
   time = 30;
   pixels = createFont("pixels.ttf", 32);
   timer = new Timer(1000);
-  
+
   // player and enemy initialization
   player = new Player(100, 400, 3);
   player.load();
@@ -24,7 +24,7 @@ void setup() {
   color c = color(255, 100, 0);
   lz = new stat_laser(pos, sp, c);
   laserz.add(lz);
-  
+
   size(500, 500);
   background(20);
 }
@@ -39,15 +39,23 @@ void displayTime() {
   }
 }
 
+void play() {
+  if (player.paused == false) {
+    background(20);
+    fill(0, 255, 0);
+    displayTime();
+
+    fill(255);
+    player.control();
+    player.display();
+
+    enemy.oscillate();
+    enemy.display();
+  }
+}
 void draw() {
-  background(20);
-  displayTime();
-
-  player.control();
-  player.display();
-
-  enemy.oscillate();
-  enemy.display();
+  player.pause();
+  play();
 }
 
 // TODO: implement shooting/collision detection, pause

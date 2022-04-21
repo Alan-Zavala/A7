@@ -1,12 +1,12 @@
 class Player extends Ship {
   PShape playerShape;
+  boolean paused;
 
   Player(float posX, float posY, int health) {
     super(posX, posY, health);
+    paused = false;
   }
-
-  // METHODS: shoot, display lives,
-  // attibutes: 
+ 
   void load() {
     playerShape = loadShape("galaga.svg"); 
     // reassign hurtbox dimensions
@@ -23,7 +23,6 @@ class Player extends Ship {
       player.move(-5, hurtX / 2);
     }
     else if (keyPressed && key == 'd') {
-      println(key);
       player.move(5, hurtX / 2);
     }
   }
@@ -37,6 +36,12 @@ class Player extends Ship {
     move and shoot at the same time in Resident Evil 4 and they
     call it a classic
     */
-    
+  }
+  
+  void pause() {
+    if (keyPressed && key == 'p') {
+      paused = !paused;
+      println(paused);
+    }
   }
 }
