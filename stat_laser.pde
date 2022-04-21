@@ -1,8 +1,8 @@
-class stat_laser extends laser {
+class stat_laser extends Laser {
   PShape s;
   
-  stat_laser(PVector pos, PVector sp, color c) {
-    super(pos, sp, c);
+  stat_laser(PVector pos, color c) {
+    super(pos, c);
     s = createShape();
     s.beginShape();
     s.fill(c);
@@ -20,12 +20,13 @@ class stat_laser extends laser {
     shape(s);
   }
   
-  
+/*  
   void move() {
     pos.x += sp.x;
     pos.y += sp.y;
     s.translate(sp.x, sp.y);
   }
+*/
   
   
 }

@@ -9,7 +9,7 @@ class Enemy extends Ship {
   
   void load() {
     // assign a random speed
-    speed = random(1, 10);
+    speed = random(1, 7);
     enemyShape = loadShape("galaga.svg");
     // initialize variables
     hurtX = enemyShape.width;

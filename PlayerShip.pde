@@ -28,15 +28,20 @@ class Player extends Ship {
     }
   }
   void display() {
+    stroke(220);
     shape(playerShape, pos.x, pos.y);
   }
   
-  void shoot() {
+  void shoot(ArrayList lasers) {
     /*
     you can't move and shoot at the same time, but you couldn't
     move and shoot at the same time in Resident Evil 4 and they
     call it a classic
     */
+    if (keyPressed && key == ' ') {
+      Laser ls = new Laser(new PVector(pos.x, pos.y), color(255, 0, 0));
+      lasers.add(ls);
+    }
   }
   
   void pause() {
