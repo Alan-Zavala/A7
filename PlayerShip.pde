@@ -1,6 +1,7 @@
 class Player extends Ship {
   PShape playerShape;
   boolean paused;
+  boolean dead;
 
   Player(float posX, float posY, int health) {
     super(posX, posY, health);
@@ -39,7 +40,7 @@ class Player extends Ship {
   }
   
   void pause() {
-    if (keyPressed && key == 'p') {
+    if (keyPressed && key == 'p' && dead == false) {
       paused = !paused;
       println(paused);
     }

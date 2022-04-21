@@ -53,7 +53,19 @@ void play() {
     enemy.display();
   }
 }
+
+// cannot currently restart at game over, must rerun the program
+void gameOverCheck() {
+  if (time <= -1) {
+    player.paused = true;
+    player.dead = true;
+    fill(255, 0, 20);
+    text("GAME OVER", width / 4, height / 2);
+  }
+}
+
 void draw() {
+  gameOverCheck();
   player.pause();
   play();
 }
