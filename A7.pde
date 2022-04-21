@@ -3,8 +3,8 @@ Enemy enemy;
 int time;
 PFont pixels;
 Timer timer;
-stat_laser lz;
-ArrayList<Laser> laserz;
+ArrayList<Laser> player_lasers;
+ArrayLsit<stat_lasers> enemy_lasers;
 boolean beg = false;
 boolean first = true;
 
@@ -18,14 +18,6 @@ void setup() {
   player.load();
   enemy = new Enemy(100, 100, 1);
   enemy.load();
-
-  // adding one laser into array, can add based on player and AI actions
-  laserz = new ArrayList<Laser>();
-  PVector pos = new PVector(100, 50);
-  PVector sp = new PVector(0, 2);
-  color c = color(255, 100, 0);
-  //lz new stat_laser(pos, sp, c);
-  //lasz.add(lz);
 
   size(500, 500);
   background(20);
@@ -73,11 +65,18 @@ void play() {
     enemy.oscillate();
     enemy.display();
     
-    for (Laser ls : laserz) {
+    for (Laser ls : player_lasers) {
       ls.move();
       ls.display();
       if (ls.onScreen == false) {
-        laserz.remove(ls);
+        player_lasers.remove(ls);
+      }
+    }
+    for (stat_laser ls : enemy_lasers) {
+      ls.move();
+      ls.display();
+      if (ls.onScreen == false) {
+        enemy_lasers.remove(ls);
       }
     }
   }
